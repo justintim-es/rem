@@ -1,0 +1,36 @@
+<section class="hero is-fullheight is-black is-bold">
+  <div class="hero-body">
+    <div class="container has-text-centered" *ngIf="!(isOnboardSuccess | async)">
+      <p class="title" >sell</p>
+      <mat-form-field style="width: 100%" >
+        <mat-label>country</mat-label>
+        <mat-select [(value)]="country" [formControl]="countryFormControl" (selectionChange)="createAccount()">
+          <mat-option value="ES">Spain</mat-option>
+          <mat-option value="FR">France</mat-option>
+          <mat-option value="BE">Belgium</mat-option>
+        </mat-select>
+        <div class="spinner spinner-border spinner-border-sm" *ngIf="isAccountId | async" matSuffix></div>
+        <mat-error *ngIf="countryFormControl.hasError('required')">Country is required</mat-error>
+      </mat-form-field>
+      <div class="is-clipped">
+        <mat-form-field style="width: 100%" color="dark" *ngIf="isEmail | async" @transformFromAbove >
+          <input matInput placeholder="E-Mail" [formControl]="emailFormControl" [errorStateMatcher]="errorStateMatcher" [(ngModel)]="email"/>
+          <mat-error *ngIf="emailFormControl.hasError('required')">
+            E-mail is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="is-clipped">
+        <mat-form-field style="width: 100%" *ngIf="isEmail | async" @transformFromAbove>
+          <input matInput placeholder="Password" [formControl]="passwordFormControl" type="password" [errorStateMatcher]="errorStateMatcher" [(ngModel)]="password" />
+          <button mat-button matSuffix (click)="register()">register</button>
+          <div class="spinner-border spinner-border-sm" *ngIf="isOnboard | async" matSuffix></div>
+          <mat-error *ngIf="passwordFormControl.hasError('required')"></mat-error>
+        </mat-form-field>  
+      </div>
+    </div>
+    <div class="container has-text-centered" *ngIf="isOnboardSuccess | async">
+      <p class="title">Please confirm your e-mail</p>
+    </div>
+  </div>
+</section>

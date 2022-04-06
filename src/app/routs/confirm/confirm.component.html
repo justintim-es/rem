@@ -1,0 +1,8 @@
+<section class="hero is-fullheight is-black is-bold">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <div class="spinner spinner-border" *ngIf="(isFetch | async)"></div>
+      <button mat-button (click)="onboard()" *ngIf="!(isFetch | async)">onboard</button>
+    </div>
+  </div>
+</section>

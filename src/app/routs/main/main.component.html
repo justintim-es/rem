@@ -1,0 +1,16 @@
+<mat-toolbar color="primary">
+    <span>trade.gladiato.rs</span>
+  <span class="spacer"></span>
+  <button mat-button *ngIf="(topValue | async) != 0" (click)="slideRight(0)">buy</button>   
+  <button mat-raised-button *ngIf="(topValue | async) == 0" color="primary">buy</button>   
+  <button mat-button *ngIf="(topValue | async) != 1" (click)="slideRight(1)">sell</button>   
+  <button mat-raised-button *ngIf="(topValue | async) == 1" color="primary">sell</button>   
+  <button mat-raised-button *ngIf="(topValue | async) == 2"  color="primary">wallet</button>
+  <button mat-button *ngIf="(topValue | async) != 2" (click)="slideRight(2)">wallet</button>
+  </mat-toolbar>
+  <section class="hero is-black is-fullheight-with-navbar" [@slide]="topState | async" *ngIf="isTop | async">
+    <app-main-sell *ngIf="(topValue |  async) == 1"></app-main-sell>
+  </section>
+  <section class="hero is-black is-fullheight-with-navbar" [@slide]="bottomState | async" *ngIf="isBottom | async">
+    <app-main-sell *ngIf="(bottomValue | async) == 1"></app-main-sell>
+  </section>
