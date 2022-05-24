@@ -1,0 +1,54 @@
+<section class="hero is-fullheight-with-navbar">
+  <mat-tab-group mat-align-tabs="center">
+    <mat-tab label="Liber">
+      <mat-tab-group mat-align-tabs="center">
+        <mat-tab label="GLA">
+          <section class="hero is-black is-bold" *ngFor="let offer of (offersLG | async); let i = index">
+            <div class="hero-head">
+              <div class="container has-text-center">
+                <nav class="level">
+                  <div class="level-item">
+                    <div>
+                      <p class="heading">average</p>
+                    </div>
+                  </div>
+                  <div class="level-item">
+                    <div>
+                      <p class="heading">
+                        {{ '€ ' + offer.payment.average}}
+                      </p>
+                    </div>
+                  </div>
+                </nav>
+              </div>
+            </div>
+            <div class="hero-body">
+              <div class="container has-text-centered">
+                <app-main-buy-button [price]="offer.payment.price" [gla]="offer.payment.gla" [url]="offer.payment.url">
+                  {{ offer.payment.price }}
+                </app-main-buy-button>
+              </div>
+            </div>
+            <div class="hero-foot">
+              <div class="container has-text-centered">
+                <button mat-button style="width:100%;" routerLink="{{ '/main-buy-defences/' + offer.rationemId }}">defences</button>
+              </div>
+            </div>
+          </section>
+        </mat-tab>
+        <mat-tab label="Price">
+
+
+        </mat-tab>
+        <mat-tab label="Average"> Content 3 </mat-tab>
+      </mat-tab-group>
+    </mat-tab>
+    <mat-tab label="Fixum">
+      <mat-tab-group mat-align-tabs="center">
+        <mat-tab label="Gla"> Content 1 </mat-tab>
+        <mat-tab label="Price"> Content 2 </mat-tab>
+        <mat-tab label="Average"> Content 3 </mat-tab>
+      </mat-tab-group>
+    </mat-tab>
+  </mat-tab-group>
+</section>

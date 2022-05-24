@@ -15,7 +15,7 @@ export class OnboardedComponent implements OnInit {
   activatedRouteSub: SubscriptionLike;
   isFetch: Observable<boolean>;
   isFetchSuccessSub: SubscriptionLike;
-  isFetchError: Observable<boolean>;
+  isFetchErrorSub: SubscriptionLike;
   constructor(
     private router: Router,
     private store: Store,
@@ -34,11 +34,13 @@ export class OnboardedComponent implements OnInit {
         this.router.navigate(['/login']);
       }
     });
-    this.isFetchError = this.store.select(getOnboardIsFetchError);
+    this.isFetchErrorSub = this.store.select(getOnboardIsFetchError).subscribe(res => {
+      if (res) {
+        this.router.navigate(['/login']);
+      }
+    });
    }
-
   ngOnInit(): void {
-    
-  }
 
+  }
 }

@@ -19,3 +19,7 @@ export const getLoginFetchErrorMessage = createSelector(
     getLoginFeatureState,
     state => state.fetchErrorMessage
 )
+export const getLoginIsRouteThrough = createSelector(
+    getLoginFeatureState,
+    state => state.isRouteThrough
+);

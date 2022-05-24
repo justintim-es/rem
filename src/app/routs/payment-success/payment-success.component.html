@@ -1,0 +1,20 @@
+<section class="hero is-fullheight is-black is-bold">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <p class="title">
+        Login to transfer your gladiato.rs
+      </p>
+    <mat-form-field style="width:100%">
+      <input placeholder="E-Mail" matInput [formControl]="emailFormControl" [errorStateMatcher]="errorStateMatcher" [(ngModel)]="email" type="text" />
+    </mat-form-field>
+    <mat-form-field style="width:100%">
+      <input matInput placeholder="Password" [formControl]="passwordFormControl" [errorStateMatcher]="errorStateMatcher" [(ngModel)]="password" type="text" type="password" />
+      <button mat-button matSuffix (click)="cashOut()" >transfer</button>
+      <div class="spinner spinner-border spinner-border-sm" *ngIf="(isLoginFetch | async) || (isTransferFetch | async)" matSuffix></div>
+      <mat-error *ngIf="passwordFormControl.hasError('backend')">
+        {{ fetchErrorMessage | async }}
+      </mat-error>
+    </mat-form-field>
+    </div>
+  </div>
+</section>

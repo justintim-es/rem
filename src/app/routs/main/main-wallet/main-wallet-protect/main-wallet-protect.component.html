@@ -1,0 +1,303 @@
+<mat-toolbar color="primary">
+  <button mat-button routerLink="/main/">
+      <mat-icon>arrow_back</mat-icon>
+  </button>
+</mat-toolbar>
+<section class="hero is-halfheight is-black is-bold">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <br>
+      <p class="heading">base defence</p>
+      <p class="title">
+        {{ (baseDefence | async) }}
+      </p>
+      <p class="heading">bought liber defences</p>
+      <nav class="level">
+        <div class="level-item" *ngFor="let defence of (liberDefences | async); let i = index">
+          <div>
+            <p class="heading" >
+              {{ defence.bid }}
+            </p>
+            <p class="subtitle" >
+              {{ defence.defence }}
+            </p>
+          </div>
+        </div>
+      </nav>
+      <p class="heading">bought fixum defences</p>
+      <nav class="level">
+        <div class="level-item" *ngFor="let defence of (fixumDefences | async); let i = index">
+          <div>
+            <p class="heading" >
+              {{ defence.bid }}
+            </p>
+            <p class="subtitle" >
+              {{ defence.defence }}
+            </p>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+  <div class="hero-foot">
+    <div class="container has-text-centered">
+      <button mat-button (click)="refresh()">
+      refresh
+    </button></div>
+  </div>
+</section>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>
+      <mat-icon class="is-size-1">filter_alt</mat-icon>
+    </span>
+    <span class="spacer"></span>
+    <button mat-icon-button (click)="toolbar()">
+        <mat-icon *ngIf="!(isToolbar | async)">menu</mat-icon>
+    </button>
+    <button mat-icon-button (click)="closeToolbar()">
+      <mat-icon *ngIf="(isToolbar | async)">close</mat-icon>
+  </button>
+
+  </mat-toolbar-row>
+  <mat-toolbar-row *ngIf="isToolbar | async">
+    <span>
+      <p class="heading is-marginless is-paddingless">low to high</p>
+      <p class="heading is-marginless is-paddingless is-size-4">other bids</p>
+    </span>
+    <span class="spacer"></span>
+    <button mat-icon-button *ngIf="isOtherBid | async">
+      <mat-icon>filter_alt</mat-icon>
+    </button>
+    <button mat-icon-button (click)="other()" *ngIf="!(isOtherBid | async)">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </mat-toolbar-row>
+  <mat-toolbar-row *ngIf="isToolbar | async">
+    <span>
+      <p class="heading is-marginless is-paddingless">high to low</p>
+      <p class="heading is-marginless is-paddingless is-size-4">team burns</p>
+    </span>
+    <span class="spacer"></span>
+    <button mat-icon-button *ngIf="isYourBid | async">
+        <mat-icon >filter_alt</mat-icon>
+    </button>
+    <button mat-icon-button *ngIf="!(isYourBid | async)" (click)="your()">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+<section class="hero is-halfheight is-black is-bold">
+  <div class="hero-head">
+    <div class="container has-text-centered">
+      <p class="heading pt-6">
+        blocknumber
+      </p>
+      <nav class="level">
+        <div class="level-item">
+          <div>
+            <p class="heading">[</p>
+          </div>
+        </div>
+        <div class="level-item" *ngFor="let b of (blockNumber | async)">
+          <div>
+            <p class="heading">
+               {{ b }}
+            </p>
+          </div>
+        </div>
+        <div class="level-item">
+          <div>
+            <p class="heading">]</p>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <mat-form-field style="width:100%">
+        <span matPrefix>[</span>
+        <input type="text" matInput [formControl]="firstIndexFormControl" [errorStateMatcher]="errorStateMatcher" [(ngModel)]="firstIndex" placeholder="First index">
+        <span matSuffix>]</span>
+        <mat-hint>[1000000000000000000, 500]</mat-hint>
+      </mat-form-field>
+      <mat-form-field style="width:100%">
+        <span matPrefix>[</span>
+        <input type="text" matInput placeholder="Last index"   [(ngModel)]="lastIndex" [formControl]="lastIndexFormControl" [errorStateMatcher]="errorStateMatcher">
+        <span matSuffix>]</span>
+        <mat-hint>[1000000000000000000, 1000]</mat-hint>
+      </mat-form-field>
+      <br>
+      <button mat-raised-button (click)="grab()" *ngIf="!(isOtherBidFetch | async) && !(isYourBidFetch | async)" color="primary" style="width: 100%">grab</button>
+      <div class="spinner-border spinner-border-sm" *ngIf="(isOtherBidFetch | async) && !(isYourBidFetch | async)"></div>
+    </div>
+  </div>
+</section>
+<section class="hero is-black is-bold">
+  <mat-tab-group mat-align-tabs="center">
+    <mat-tab label="liber">
+      <section class="hero is-small is-black is-bold" *ngFor="let yourBid of (yourBidsLiber | async); let i = index">
+        <div class="hero-head">
+          <div class="container has-text-centered">
+            <p class="heading">
+              liber
+            </p>
+          </div>
+        </div>
+        <div class="hero-body">
+          <div class="container has-text-centered">
+            <p class="heading">
+              defence
+            </p>
+            <p class="heading">
+              {{ yourBid.defensio }}
+            </p>
+            <p class="heading">
+              {{ yourBid.probationem }}
+            </p>
+            <nav class="level">
+              <div class="level-item">
+                <div>
+                  <p class="heading">your teams burn</p>
+                  <p class="subtitle">
+                    {{ yourBid.yourBid }}
+                  </p>
+                </div>
+              </div>
+              <div class="level-item">
+                <div>
+                  <p class="heading">highest burn</p>
+                  <p class="subtitle">
+                    {{ yourBid.other.summaBid }}
+                  </p>
+                </div>
+              </div>
+            </nav>
+            <app-main-wallet-protect-burn [ischin]="i" [liber]="true"></app-main-wallet-protect-burn>
+          </div>
+        </div>
+      </section>
+      <section class="hero is-small is-black is-bold" *ngFor="let otherBid of (otherBidsLiber | async); let i = index">
+    <div class="hero-head">
+      <div class="container has-text-centered">
+        <p class="heading">liber</p>
+      </div>
+    </div>
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <p class="heading">defence</p>
+        <p class="heading">
+          {{ otherBid.defensio }}
+        </p>
+        <p class="heading">
+          {{ otherBid.probationem }}
+        </p>
+        <nav class="level">
+          <div class="level-item">
+            <div>
+              <p class="heading">highest burn</p>
+              <p class="subtitle">
+                {{ otherBid.summaBid }}
+              </p>
+            </div>
+          </div>
+          <div class="level-item">
+            <div>
+              <p class="heading">your team burn</p>
+              <p class="subtitle">
+                {{ otherBid.your.yourBid }}
+              </p>
+            </div>
+          </div>
+        </nav>
+        <app-main-wallet-protect-burn [ischin]="i" [liber]="true"></app-main-wallet-protect-burn>
+      </div>
+    </div>
+  </section>
+    </mat-tab>
+    <mat-tab label="fixum">
+      <section class="hero is-small is-black is-bold" *ngFor="let yourBid of (yourBidsFixum | async); let i = index">
+        <div class="hero-heads">
+          <div class="container has-text-centered">
+            <p>fixum</p>
+          </div>
+        </div>
+        <div class="hero-body">
+          <div class="container has-text-centered">
+            <p class="heading">
+              defence
+            </p>
+            <p class="heading">
+              {{ yourBid.defensio }}
+            </p>
+            <p class="heading">
+              {{ yourBid.probationem }}
+            </p>
+            <nav class="level">
+              <div class="level-item">
+                <div>
+                  <p class="heading">your teams burn</p>
+                  <p class="subtitle">
+                    {{ yourBid.yourBid }}
+                  </p>
+                </div>
+              </div>
+              <div class="level-item">
+                <div>
+                  <p class="heading">highest burn</p>
+                  <p class="subtitle">
+                    {{ yourBid.other.summaBid }}
+                  </p>
+                </div>
+              </div>
+            </nav>
+            <app-main-wallet-protect-burn [ischin]="i" [liber]="false"></app-main-wallet-protect-burn>
+          </div>
+        </div>
+      </section>
+      <section class="hero is-small is-black is-bold" *ngFor="let otherBid of (otherBidsFixum | async); let i = index">
+        <div class="hero-head">
+          <div class="container has-text-centered">
+            <p class="heading">fixum</p>
+          </div>
+        </div>
+        <div class="hero-body">
+          <div class="container has-text-centered">
+            <p class="heading">defence</p>
+            <p class="heading">
+              {{ otherBid.defensio }}
+            </p>
+            <p class="heading">
+              {{ otherBid.probationem }}
+            </p>
+            <nav class="level">
+              <div class="level-item">
+                <div>
+                  <p class="heading">highest burn</p>
+                  <p class="subtitle">
+                    {{ otherBid.summaBid }}
+                  </p>
+                </div>
+              </div>
+              <div class="level-item">
+                <div>
+                  <p class="heading">your team burn</p>
+                  <p class="subtitle">
+                    {{ otherBid.your.yourBid }}
+                  </p>
+                </div>
+              </div>
+            </nav>
+            <app-main-wallet-protect-burn [ischin]="i" [liber]="false"></app-main-wallet-protect-burn>
+          </div>
+        </div>
+      </section>
+    </mat-tab>
+  </mat-tab-group>
+</section>
+
+
+
+
+

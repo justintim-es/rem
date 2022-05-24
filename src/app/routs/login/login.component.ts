@@ -3,14 +3,20 @@ import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, SubscriptionLike } from 'rxjs';
+import { leaveLeft, leaveRight, leaveUp } from 'src/app/animations/animator';
 import { MyErrorStateMatcher } from 'src/app/error-state-matcher';
 import { IAction, ISellFetch } from 'src/app/redux/combiner';
 import { RDX_LOGIN_FETCH } from 'src/app/redux/login/actions';
-import { getLoginFetchErrorMessage, getLoginIsFetch, getLoginIsFetchError, getLoginIsFetchSuccess } from 'src/app/redux/login/selectors';
+import { getLoginFetchErrorMessage, getLoginIsFetch, getLoginIsFetchError, getLoginIsFetchSuccess, getLoginIsRouteThrough } from 'src/app/redux/login/selectors';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  animations: [
+    leaveRight,
+    leaveUp,
+    leaveLeft
+  ]
 })
 export class LoginComponent implements OnInit, OnDestroy {
   emailFormControl: FormControl;
@@ -20,9 +26,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   errorStateMatcher: MyErrorStateMatcher;
 
   isFetch: Observable<boolean>;
-  isFetchSuccessSub: SubscriptionLike;
-  isFetchError: Observable<boolean>;
+  isFetchSuccess: Observable<boolean>;
+  isFetchErrorSub: SubscriptionLike;
   fetchErrorMessage: Observable<string>; 
+  isRouteThroughSub: SubscriptionLike;
   constructor(
     private router: Router,
     private store: Store
@@ -38,17 +45,21 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.password = '';
     this.errorStateMatcher = new MyErrorStateMatcher();
     this.isFetch = this.store.select(getLoginIsFetch);
-    this.isFetchSuccessSub = this.store.select(getLoginIsFetchSuccess).subscribe(res => {
+    this.isFetchSuccess = this.store.select(getLoginIsFetchSuccess);
+    this.isRouteThroughSub = this.store.select(getLoginIsRouteThrough).subscribe(res => {
       if(res) {
         this.router.navigate(['/main'])
       }
     });
-    this.isFetchError = this.store.select(getLoginIsFetchError);
+    this.isFetchErrorSub = this.store.select(getLoginIsFetchError).subscribe(res => {
+      if (res) {
+        this.passwordFormControl.setErrors({ backend: true });
+      }
+    });
     this.fetchErrorMessage = this.store.select(getLoginFetchErrorMessage);
   }
 
   ngOnInit(): void {
-
   }
 
   login() {
@@ -62,7 +73,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy(): void {
-    this.isFetchSuccessSub.unsubscribe();
+    this.isRouteThroughSub.unsubscribe();
   }
 
 }

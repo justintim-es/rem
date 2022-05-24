@@ -1,7 +1,188 @@
-<section class="hero is-fullheight is-black is-bold">
+
+<section class="hero is-fullheight is-black is-bold" *ngIf="isOnboardCompleting | async">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <div class="spinner spinner-border"></div>
+    </div>
+  </div>
+</section>
+<section class="hero is-fullheight is-black is-bold" *ngIf="(isAccount | async) && !(isOnboardCompleting | async)">
+  <div class="hero-head">
+    <div class="container has-text-centered">
+      <br>
+      <p class="title">Balance</p>
+      <nav class="level">
+        <div class="level-item">
+          <div>
+            <p class="heading">fixum</p>
+            <p class="subtitle">
+              {{ fixumBalance | async }}
+            </p>
+          </div>
+        </div>
+        <div class="level-item">
+          <div>
+            <p class="heading">liber</p>
+            <p class="subtitle">
+              {{ liberBalance | async }}
+            </p>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
     <div class="hero-body">
         <div class="container has-text-centered">
-            <p class="title">sell</p>
-        </div>
+          <p class="heading">Average Price</p>
+          <p class="title">€ 0 / 1000000000000000000000000000000000000000000000000000</p>
+            <nav class="level is-mobile">
+              <div class="level-item">
+                <div>
+                  <p class="heading">sell</p>
+                  <button mat-button *ngIf="!(isFixum |  async)" (click)="chooseFixum()">fixum</button>
+                  <button mat-raised-button color="primary" *ngIf="isFixum | async">fixum</button>
+                </div>
+              </div>
+              <div class="level-item">
+                <div>
+                  <p class="heading">sell</p>
+                  <button mat-button *ngIf="!(isLiber | async)" (click)="chooseLiber()">liber</button>
+                  <button mat-raised-button *ngIf="isLiber | async"  color="primary">liber</button>
+                </div>
+              </div>
+            </nav>
+            <div class="is-clipped">
+              <mat-form-field *ngIf="isAmount | async" @transformFromAbove style="width: 100%">
+                <mat-label>unit</mat-label>
+                <mat-select [(value)]="unit">
+
+                <mat-option *ngFor="let unit of (units | async)" [value]="unit.key">
+                  {{ (unit.key + ' ' + unit.value)}}
+                </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field *ngIf="isAmount | async"  style="width: 100%">
+                <input [formControl]="amountFormControl"
+                matInput
+                type="number"
+                placeholder="{{ (isLiber | async) ? 'LGLA' : 'FGLA' }}"
+                [(ngModel)]="amount" [errorStateMatcher]="errorStateMatcher" />
+                <mat-error *ngIf="amountFormControl.hasError('backend')">
+                  {{ fetchErrorMessage | async }}
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field *ngIf="isAmount | async" @transformFromBelow style="width: 100%">
+                <input matInput [formControl]="priceFormControl" type="number" placeholder="Price" [(ngModel)]="price"  [errorStateMatcher]="errorStateMatcher" />
+                <button mat-button matSuffix (click)="submit()">submit</button>
+                <div class="spinner-border spinner-border-sm" matSuffix *ngIf="isFetch | async"></div>
+              </mat-form-field>
+              <button mat-button *ngIf="(isLiber | async) && !(isFetch | async)" (click)="neschew()">create new sell acccount</button>
+              <button class="spinner-border spinner-border-sm" *ngIf="isFetch | async"></button>
+            </div>
+          </div>
+    </div>
+    <div class="hero-foot">
+      <div class="container has-text-centered"><button mat-button (click)="refresh()">
+        refresh
+      </button></div>
     </div>
 </section>
+<section class="hero is-fullheight is-black is-bold" *ngIf="!(isOnboardComplete | async)">
+  <div class="hero-body">
+    <button style="width:100%" mat-raised-button *ngIf="isAccountCreateFetchSuccess | async" (click)="onboard()"></button>
+    <div class="container has-text-centered" *ngIf="!(isAccountCreateFetchSuccess | async)">
+    <p class="title">Onboard to sell gla</p>
+      <mat-form-field style="width:100%" >
+        <mat-label>Country</mat-label>
+        <mat-select [(value)]="country" [formControl]="countryFormControl" [errorStateMatcher]="errorStateMatcher" (selectionChange)="onboard()">
+          <mat-option value="ES">Spain</mat-option>
+          <mat-option value="FR">France</mat-option>
+          <mat-option value="BE">Belgium</mat-option>
+          <mat-option value="NL">Netherlands</mat-option>
+        </mat-select>
+        <div class="spinner spinner-border spinner-border-sm" matSuffix *ngIf="isAccountCreateFetch | async"></div>
+        <mat-error *ngIf="countryFormControl.hasError('required')">Country is required</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+</section>
+<div *ngIf="(isOnboardComplete | async) && !(isOnboardCompleting | async)">
+  <section class="hero is-black is-bold"   *ngFor="let sell of (sells | async); let i = index">
+    <div class="hero-head" *ngIf="sell.liber">
+      <div class="container has-text-centered">
+        <nav class="level">
+          <div class="level-item">
+            <div>
+              <p class="heading">
+                balance
+              </p>
+            </div>
+        </div>
+        <div class="level-item">
+          <div>
+            <p class="heading">
+              {{ sell.balance }}
+            </p>
+          </div>
+        </div>
+        <div class="level-item">
+          <div>
+            <p class="heading">
+              account status
+            </p>
+          </div>
+        </div>
+        <div class="level-item">
+          <div>
+            <p class="heading" *ngIf="sell.rationem?.data?.includi">
+                {{ sell.rationem?.data?.includi ? (sell.isActive ? (sell.payment.isSold ? 'sold' : 'for sell') : 'ready') : 'pending' }}
+            </p>
+          </div>
+        </div>
+      </nav>
+      <button mat-icon-button *ngIf="
+      sell.rationem?.data?.includi &&
+      !sell.isActive"
+      routerLink="{{ '/main-wallet-protect/' + sell.rationem.data.index +  '/' + (sell.rationem?.gladiator) + '/' + (sell._id) }}">
+        <mat-icon>security</mat-icon>
+      </button>
+        </div>
+        </div>
+        <div class="hero-body" *ngIf="sell.isActive && !sell.payment.isSold">
+          <div class="container has-text-centered">
+            <p class="heading">price</p>
+            <p class="title">
+              {{ '€ ' + (sell.price) + ' cents' }}
+            </p>
+            <p class="heading">average</p>
+            {{ '€ ' + (sell.average)  }}
+
+          </div>
+        </div>
+        <div class="hero-body" *ngIf="sell.rationem?.data?.includi && !sell.isActive">
+          <div class="container has-text-centered">
+            <app-ischin [ischindeschex]="i" [public]="sell.public" [ischid]="sell._id"></app-ischin>
+            <app-main-sell-for [ischindeschex]="i" *ngIf="sell.balance! > 0">
+            </app-main-sell-for>
+          </div>
+        </div>
+        <div class="hero-body" *ngIf="!sell.rationem?.data?.includi">
+          <div class="container has-text-centered">
+            <p class="heading" >
+              {{ sell.rationem?.scriptum | json }}
+            </p>
+          </div>
+        </div>
+        <div class="hero-body" *ngIf="sell.payment.isSold && !(isReuseError | async)?.get(i)">
+          <div class="container has-text-centered">
+            <button mat-button (click)="reuse(i, sell._id)" *ngIf="!(isReuse | async)?.get(i)">reuse sell account</button>
+            <div class="spinner spinner-border spinner-border-sm" *ngIf="(isReuse | async)?.get(i)"></div>
+          </div>
+        </div>
+        <div class="hero-body"><div class="container has-text-centered">
+          <p class="heading">
+            {{ (reuseErrorMessage | async)?.get(i) | json }}
+          </p>
+        </div></div>
+  </section>
+</div>

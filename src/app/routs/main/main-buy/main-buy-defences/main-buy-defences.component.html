@@ -1,0 +1,31 @@
+<mat-toolbar color="primary">
+  <button mat-button routerLink="/main">
+    <mat-icon>arrow_back</mat-icon>
+</button>
+</mat-toolbar>
+<section class="hero is-fullheight-with-navbar is-black is-bold">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <p class="heading">liber defences</p>
+      <nav class="level">
+        <div class="level-item" *ngFor="let lib of (liber | async)">
+          <div>
+            <p class="heading">
+              {{ lib.defence }}
+            </p>
+          </div>
+        </div>
+      </nav>
+      <p class="heading">fixum defences </p>
+      <nav class="level">
+        <div class="level-item" *ngFor="let fix of (fixum | async)">
+          <div>
+            <p class="heading">
+              {{ fix.defence }}
+            </p>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+</section>

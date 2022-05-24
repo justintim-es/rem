@@ -1,0 +1,11 @@
+<section class="hero is-fullheight is-bold is-black">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <p class="title">
+        Onboarding canceled
+      </p>
+      <div class="spinner-border spinner" *ngIf="isFetch | async"></div>
+      <button mat-button (click)="try()" *ngIf="!(isFetch | async)">try again</button>
+    </div>
+  </div>
+</section>

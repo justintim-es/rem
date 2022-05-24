@@ -1,0 +1,8 @@
+<mat-form-field style="width:100%">
+  <input matInput placeholder="GLA" [formControl]="formControl" [errorStateMatcher]="errorStateMatcher" [(ngModel)]="gla"  type="text">
+  <button mat-button (click)="burn()" matSuffix>burn</button>
+  <div class="spinner-border spinner-border-sm" *ngIf="isFetch | async" matSuffix></div>
+  <mat-error *ngIf="formControl.hasError('backend')">
+    {{ fetchErrorMessage | async }}
+  </mat-error>
+</mat-form-field>

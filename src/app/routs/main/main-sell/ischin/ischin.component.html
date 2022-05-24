@@ -1,0 +1,25 @@
+<mat-form-field style="width: 100%">
+  <mat-label>unit</mat-label>
+  <mat-select [(value)]="unit">
+  <mat-option *ngFor="let unit of (units | async)" [value]="unit.key">
+    {{ (unit.key + ' ' + unit.value)}}
+  </mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field   style="width: 100%">
+  <input [formControl]="amountFormControl"
+  matInput
+  type="number"
+  placeholder="Liber"
+  [(ngModel)]="amount" [errorStateMatcher]="errorStateMatcher" />
+  <button mat-button matSuffix (click)="submit()">submit</button>
+  <div class="spinner-border spinner-border-sm" matSuffix *ngIf="isFetch | async"></div>
+</mat-form-field>
+<!-- <mat-form-field @transformFromBelow style="width: 100%">
+  <input matInput [formControl]="priceFormControl" type="number" placeholder="Price" [(ngModel)]="price"  [errorStateMatcher]="errorStateMatcher" />
+  <button mat-button matSuffix (click)="submit()">submit</button>
+  <mat-hint>new price</mat-hint>
+  <mat-error *ngIf="priceFormControl.hasError('backend')">
+    {{ fetchErrorMessage | async }}
+  </mat-error>
+</mat-form-field> -->

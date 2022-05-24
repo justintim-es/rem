@@ -1,12 +1,12 @@
 <section class="hero is-fullheight is-black is-bold">
     <div class="hero-body">
         <div class="container has-text-centered">
-            <p class="title">Login</p>
-            <mat-form-field style="width: 100%">
-                <input matInput placeholder="E-Mail" [formControl]="emailFormControl" [errorStateMatcher]="errorStateMatcher" />
+            <p class="title" @leaveUp *ngIf="!(isFetchSuccess | async)">Login</p>
+            <mat-form-field style="width: 100%" *ngIf="!(isFetchSuccess | async)" @leaveLeft>
+                <input matInput placeholder="E-Mail" [(ngModel)]="email" [formControl]="emailFormControl" [errorStateMatcher]="errorStateMatcher" />
             </mat-form-field>
-            <mat-form-field style="width: 100%">
-                <input matInput type="password" placeholder="Password" [formControl]="passwordFormControl" [errorStateMatcher]="errorStateMatcher" />
+            <mat-form-field style="width: 100%" *ngIf="!(isFetchSuccess | async)" @leaveRight>
+                <input matInput type="password" placeholder="Password" [(ngModel)]="password" [formControl]="passwordFormControl" [errorStateMatcher]="errorStateMatcher" />
                 <button mat-button matSuffix (click)="login()">login <div class="spinner spinner-border spinner-border-sm" *ngIf="isFetch | async"></div></button>
                 <mat-error *ngIf="passwordFormControl.hasError('backend')">
                     {{ fetchErrorMessage | async }}

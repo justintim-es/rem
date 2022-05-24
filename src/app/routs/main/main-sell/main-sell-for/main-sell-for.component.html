@@ -1,0 +1,7 @@
+<mat-form-field style="width:100%">
+  <input matInput placeholder="Price in cents" [formControl]="priceFormControl" [errorStateMatcher]="errorStateMatcher"  type="number" [(ngModel)]="price"/>
+</mat-form-field>
+<button mat-raised-button color="primary" style="width: 100%" *ngIf="!(isFetch | async)" (click)="activate()">
+ {{ 'sell for € ' + price + ' cents' }}
+</button>
+<div class="spinner spinner-border spinner-border-sm" *ngIf="isFetch | async"></div>

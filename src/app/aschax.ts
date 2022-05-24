@@ -1,4 +1,4 @@
 import axios from 'axios';
 export const aschax = axios.create({
-  baseURL: 'http://localhost:3000'
+  baseURL: 'http://backend.gladiato.rs'
 })

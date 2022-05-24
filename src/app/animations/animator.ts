@@ -9,12 +9,21 @@ export const transformFormAbove = trigger('transformFromAbove', [
         }))
     ])
 ])
+export const transformFromBelow = trigger('transformFromBelow', [
+  transition(':enter', [
+    style({
+      transform: 'translateY(100%)'
+    }), animate(500, style({
+      transform: 'translateY(0)'
+    }))
+  ])
+])
 export const slide = trigger('slide', [
     state('left', style({
         transform: 'translateX(-100%)'
     })),
     state('left-absolute', style({
-        transform: 'translateX(-100%)', 
+        transform: 'translateX(-100%)',
         position: 'absolute',
         width: '100%'
     })),
@@ -23,7 +32,7 @@ export const slide = trigger('slide', [
     })),
     state('invision-absolute', style({
         transform: 'translateX(0)',
-        position: 'absolute', 
+        position: 'absolute',
         width: '100%'
     })),
     state('right', style({
@@ -31,7 +40,7 @@ export const slide = trigger('slide', [
     })),
     state('right-absolute', style({
         transform: 'translateX(100%)',
-        position: 'absolute', 
+        position: 'absolute',
         width: '100%'
     })),
     transition('left => invision', animate(500)),
@@ -46,7 +55,7 @@ export const leaveLeft = trigger('leaveLeft', [
         }), animate(500, style({
             transform: 'translateX(-100%)'
         }))
-    ])    
+    ])
 ])
 export const leaveUp = trigger('leaveUp', [
     transition(':leave', [
@@ -55,7 +64,7 @@ export const leaveUp = trigger('leaveUp', [
         }), animate(500, style({
             transform: 'translateY(-100%)'
         }))
-    ])    
+    ])
 ])
 export const leaveRight = trigger('leaveRight', [
     transition(':leave', [
@@ -64,7 +73,7 @@ export const leaveRight = trigger('leaveRight', [
         }), animate(500, style({
             transform: 'translateX(100%)'
         }))
-    ])    
+    ])
 ])
 export const enterUp = trigger('enterUp', [
     transition(':enter', [
@@ -73,6 +82,6 @@ export const enterUp = trigger('enterUp', [
         }), animate(500, style({
             transform: 'translateY(-100%)'
         }))
-    ])    
+    ])
 ])
 

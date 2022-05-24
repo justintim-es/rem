@@ -3,10 +3,10 @@
         <div class="container has-text-centered">
             <p class="title" *ngIf="!(isFetchSuccess | async)">Register</p>
             <mat-form-field style="width:100%" *ngIf="!(isFetchSuccess | async)" @leaveLeft>
-                <input matInput placeholder="E-Mail" [formControl]="emailFormControl" [errorStateMatcher]="errorStateMatcher" type="text">
+                <input matInput placeholder="E-Mail" [(ngModel)]="email" [formControl]="emailFormControl" [errorStateMatcher]="errorStateMatcher" type="text">
             </mat-form-field>
             <mat-form-field style="width:100%" @leaveRight *ngIf="!(isFetchSuccess | async)">
-                <input matInput placeholder="Password" [formControl]="passwordFormControl" [errorStateMatcher]="errorStateMatcher" type="password" />
+                <input matInput placeholder="Password" [(ngModel)]="password" [formControl]="passwordFormControl" [errorStateMatcher]="errorStateMatcher" type="password" />
                 <button mat-button matSuffix (click)="register()">register</button>
                 <div class="spinner spinner-border spinner-border-sm" matSuffix *ngIf="isFetch | async"></div>
                 <mat-error *ngIf="passwordFormControl.hasError('required')">

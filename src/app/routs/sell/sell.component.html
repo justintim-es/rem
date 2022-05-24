@@ -8,6 +8,7 @@
           <mat-option value="ES">Spain</mat-option>
           <mat-option value="FR">France</mat-option>
           <mat-option value="BE">Belgium</mat-option>
+          <mat-option value="NL">Netherlands</mat-option>
         </mat-select>
         <div class="spinner spinner-border spinner-border-sm" *ngIf="isAccountId | async" matSuffix></div>
         <mat-error *ngIf="countryFormControl.hasError('required')">Country is required</mat-error>
@@ -26,7 +27,7 @@
           <button mat-button matSuffix (click)="register()">register</button>
           <div class="spinner-border spinner-border-sm" *ngIf="isOnboard | async" matSuffix></div>
           <mat-error *ngIf="passwordFormControl.hasError('required')"></mat-error>
-        </mat-form-field>  
+        </mat-form-field>
       </div>
     </div>
     <div class="container has-text-centered" *ngIf="isOnboardSuccess | async">

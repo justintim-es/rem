@@ -1,10 +1,93 @@
-<section class="hero is-fullheight is-black is-bold">   
+<section class="hero is-fullheight-with-navbar is-black is-bold">
     <div class="hero-head">
-        
+        <div class="container has-text-centered p-6">
+            <div class="spinner spinner-border" *ngIf="isFetch | async"></div>
+            <img *ngIf="!(isFetch | async)" src="{{ 'http://localhost:5122/qrcode/' + (public | async) }}" />
+            <br>
+            <br>
+            <p class="heading">public key</p>
+            <p class="subtitle">
+              {{ public | async }}
+            </p>
+            <button mat-raised-button color="primary" ngxClipboard cbContent="{{ public | async }}" >copy</button>
+            <br>
+            <br>
+            <p class="heading">protect</p>
+            <button mat-icon-button routerLink="{{ '/main-wallet-protect/' + (rationem | async)?.data?.index + '/' + (rationem | async)?.gladiatorId + '/null' }}">
+            <mat-icon color="primary">security</mat-icon>
+            </button>
+        </div>
     </div>
     <div class="hero-body">
         <div class="container has-text-centered">
-
+            <nav class="level">
+                <div class="level-item">
+                    <div>
+                        <p class="heading">
+                            {{ (fixum | async) + ' FGLA'}}
+                        </p>
+                        <button mat-raised-button color="primary" routerLink="/transfer/false">send</button>
+                    </div>
+                </div>
+                <div class="level-item">
+                  <div>
+                    <p class="heading" *ngIf="((button | async) == 'defend') || ((button | async) == 'status')">Public key is not defended yet to accept liber gla</p>
+                    <p class="heading" *ngIf="(button | async) == 'send'">
+                      {{ (liber | async) + ' LGLA' }}
+                    </p>
+                    <button mat-raised-button color="primary"  *ngIf="!(isDefending | async) && (button | async) == 'defend'" (click)="defend()">
+                      {{ button | async}}
+                    </button>
+                    <button mat-raised-button color="primary" *ngIf="!(isDefending | async) && (button | async) == 'status'" routerLink="/main-wallet-status">
+                        {{ button | async }}
+                    </button>
+                    <button mat-raised-button color="primary" *ngIf="!(isDefending | async) && (button | async) == 'send'" routerLink="/transfer/true">
+                      {{ 'send' }}
+                  </button>
+                    <div class="spinner-border spinner-border-sm" *ngIf="isDefending | async"></div>
+                  </div>
+                </div>
+            </nav>
         </div>
     </div>
+    <div class="hero-foot">
+      <div class="container has-text-centered">
+        <button mat-button (click)="fetch()">refresh</button>
+      </div>
+    </div>
+</section>
+<section class="hero is-small is-black is-bold" *ngFor="let transfer of (transfers | async);let i = index">
+  <div class="hero-head">
+    <div class="container has-text-centered">
+      <nav class="level">
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">
+              previous
+            </p>
+            <button mat-button routerLink="{{ '/main-wallet-prev-transaction/' + i }}">
+              <p class="title">transactions</p>
+            </button>
+          </div>
+        </div>
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">
+              {{ transfer.transaction.data.includi ? 'completed' : 'pending' }}
+            </p>
+            <p class="title">
+              {{ transfer.date  }}
+            </p>
+          </div>
+        </div>
+
+      </nav>
+
+    </div>
+  </div>
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      {{ (transfer.transaction.scriptum | json)}}
+    </div>
+  </div>
 </section>

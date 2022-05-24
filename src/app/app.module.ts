@@ -36,6 +36,54 @@ import { MainSellComponent } from './routs/main/main-sell/main-sell.component';
 import { MainWalletComponent } from './routs/main/main-wallet/main-wallet.component';
 import { BuyService } from './redux/buy/buy.service';
 import { buyReducer } from './redux/buy/reducer';
+import { ConfirmBuyComponent } from './routs/confirm-buy/confirm-buy.component';
+import { confirmBuyReducer } from './redux/confirm-buy/reducer';
+import { ConfirmBuyService } from './redux/confirm-buy/confirm-buy.service';
+import { tokenReducer } from './redux/token/reducer';
+import { mainWalletReducer } from './redux/main-wallet/reducer';
+import { MainWalletService } from './redux/main-wallet/main-wallet.service';
+import { MainWalletSendComponent } from './routs/main/main-wallet/main-wallet-send/main-wallet-send.component';
+import { MatIconModule } from '@angular/material/icon';
+import { transferReducer } from './redux/transfer/reducer';
+import { TransferService } from './redux/transfer/transfer.service';
+import { OnboardFailComponent } from './routs/onboard-fail/onboard-fail.component';
+import { onboardFailReducer } from './redux/onboard-fail/reducer';
+import { OnboardFailService } from './redux/onboard-fail/onboard-fail.service';
+import { MatCardModule } from '@angular/material/card';
+import { mainSellReducer } from './redux/main-sell/reducer';
+import { MainSellService } from './redux/main-sell/main-sell.service';
+import { MainWalletStatusComponent } from './routs/main/main-wallet/main-wallet-status/main-wallet-status.component';
+import { ClipboardModule } from 'ngx-clipboard';
+import { MainWalletProtectComponent } from './routs/main/main-wallet/main-wallet-protect/main-wallet-protect.component';
+import { MainWalletProtectService } from './redux/main-wallet-protect/main-wallet-protect.service';
+import { mainWalletProtectReducer } from './redux/main-wallet-protect/reducer';
+import { MainWalletProtectBuyComponent } from './routs/main/main-wallet/main-wallet-protect/main-wallet-protect-buy/main-wallet-protect-buy.component';
+import { MainWalletProtectBurnComponent } from './routs/main/main-wallet/main-wallet-protect/main-wallet-protect-burn/main-wallet-protect-burn.component';
+import { MainWalletProtectBurnService } from './redux/main-wallet-protect-burn/main-wallet-protect-burn.service';
+import { mainWalletProtectBurnReducer } from './redux/main-wallet-protect-burn/reducer';
+import { unitReducer } from './redux/unit/reducer';
+import { IschinComponent } from './routs/main/main-sell/ischin/ischin.component';
+import { mainSellIschinReducer } from './redux/main-sell-ischin/reducer';
+import { MainSellIschinService } from './redux/main-sell-ischin/main-sell-ischin.service';
+import { MainWalletPrevTransactionComponent } from './routs/main/main-wallet/main-wallet-prev-transaction/main-wallet-prev-transaction.component';
+import { MainWalletPrevTransactionService } from './redux/main-wallet-prev-transaction/main-wallet-prev-transaction.service';
+import { mainWalletPrevTransactionReducer } from './redux/main-wallet-prev-transaction/reducer';
+import { MainSellForComponent } from './routs/main/main-sell/main-sell-for/main-sell-for.component';
+import { mainSellForReducer } from './redux/main-sell-for/reducer';
+import { MainSellForService } from './redux/main-sell-for/main-sell-for.service';
+import { MainBuyComponent } from './routs/main/main-buy/main-buy.component';
+import { MainBuyService } from './redux/main-buy/main-buy.service';
+import { mainBuyReducer } from './redux/main-buy/reducer';
+import { MainBuyButtonComponent } from './routs/main/main-buy/main-buy-button/main-buy-button.component';
+import { MainBuyDefencesComponent } from './routs/main/main-buy/main-buy-defences/main-buy-defences.component';
+import { MainBuyDefencesService } from './redux/main-buy-defences/main-buy-defences.service';
+import { mainBuyDefencesReducer } from  './redux/main-buy-defences/reducer';
+import { PaymentSuccessComponent } from './routs/payment-success/payment-success.component';
+import { PaymentSuccessService } from './redux/payment-success/payment-success.service';
+import { paymentSuccessReducer } from './redux/payment-success/reducer';
+import { MainPayoutComponent } from './routs/main/main-payout/main-payout.component';
+import { mainPayoutReducer } from './redux/main-payout/reducer';
+import { MainPayoutService } from './redux/main-payout/main-payout.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,8 +96,26 @@ import { buyReducer } from './redux/buy/reducer';
     OnboardedComponent,
     MainSellComponent,
     MainWalletComponent,
+    ConfirmBuyComponent,
+    MainWalletSendComponent,
+    OnboardFailComponent,
+    MainWalletStatusComponent,
+    MainWalletProtectComponent,
+    MainWalletProtectBuyComponent,
+    MainWalletProtectBurnComponent,
+    IschinComponent,
+    MainWalletPrevTransactionComponent,
+    MainSellForComponent,
+    MainBuyComponent,
+    MainBuyButtonComponent,
+    MainBuyDefencesComponent,
+    PaymentSuccessComponent,
+    MainPayoutComponent,
   ],
   imports: [
+    ClipboardModule,
+    MatCardModule,
+    MatIconModule,
     MatTabsModule,
     MatToolbarModule,
     MatSelectModule,
@@ -66,7 +132,23 @@ import { buyReducer } from './redux/buy/reducer';
       loginReducer: loginReducer,
       buyReducer: buyReducer,
       onboardReducer: onboardReducer,
-      mainReducer: mainReducer
+      mainReducer: mainReducer,
+      confirmBuyReducer: confirmBuyReducer,
+      tokenReducer: tokenReducer,
+      mainWalletReducer: mainWalletReducer,
+      transferReducer: transferReducer,
+      onboardFailReducer: onboardFailReducer,
+      mainSellReducer: mainSellReducer,
+      mainWalletProtectReducer: mainWalletProtectReducer,
+      mainWalletProtectBurnReducer: mainWalletProtectBurnReducer,
+      unitReducer: unitReducer,
+      mainSellIschinReducer: mainSellIschinReducer,
+      mainWalletPrevTransactionReducer: mainWalletPrevTransactionReducer,
+      mainSellForReducer: mainSellForReducer,
+      mainBuyReducer: mainBuyReducer,
+      mainBuyDefencesReducer: mainBuyDefencesReducer,
+      paymentSuccessReducer: paymentSuccessReducer,
+      mainPayoutReducer: mainPayoutReducer,
     }, {}),
     EffectsModule.forRoot([
       SellEffectsService,
@@ -74,7 +156,21 @@ import { buyReducer } from './redux/buy/reducer';
       LoginEffectsService,
       OnboardService,
       MainEffectsService,
-      BuyService
+      BuyService,
+      ConfirmBuyService,
+      MainWalletService,
+      TransferService,
+      OnboardFailService,
+      MainSellService,
+      MainWalletProtectService,
+      MainWalletProtectBurnService,
+      MainSellIschinService,
+      MainWalletPrevTransactionService,
+      MainSellForService,
+      MainBuyService,
+      PaymentSuccessService,
+      MainBuyDefencesService,
+      MainPayoutService
     ]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],

@@ -13,3 +13,5 @@ export const rdxLoginFetchSuccess = createAction(
 )
 export const RDX_LOGIN_FETCH_ERROR = 'RDX_LOGIN_FETCH_ERROR';
 export const rdxLoginFetchError = createAction(RDX_LOGIN_FETCH_ERROR, props<IActionCreator<any>>());
+export const RDX_LOGIN_IS_ROUTE_THROUGH_TRUE  = 'RDX_LOGIN_IS_ROUTE_THROUGH_TRUE';
+export const rdxLoginIsRouteThrough = createAction(RDX_LOGIN_IS_ROUTE_THROUGH_TRUE, props<IActionCreator<any>>());

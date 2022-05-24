@@ -16,7 +16,7 @@ export const onboardInitial: IOnboardReducer = {
 export const onboardReducer = createReducer(
     onboardInitial,
     on(rdxOnboardFetch, (state: IOnboardReducer) => {
-        return { 
+        return {
             ...state,
             isFetch: true,
             isFetchSuccess: false,
