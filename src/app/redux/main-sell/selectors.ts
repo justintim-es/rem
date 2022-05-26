@@ -47,6 +47,10 @@ export const getMainSellSellsFilterLiber = createSelector(
   getMainSellFeatureState,
   state => state.sells.filter(x => x.liber)
 )
+export const getMainSellSellsFilterFixum = createSelector(
+  getMainSellFeatureState,
+  state => state.sells.filter(x => !x.liber)
+)
 export const getMainSellSellFilterNotLiber = createSelector(
   getMainSellFeatureState,
   state => state.sells.filter(x => !x.liber)
@@ -106,4 +110,20 @@ export const getMainSellIsReuseError = createSelector(
 export const getMainSellReuseErrorMessage = createSelector(
   getMainSellFeatureState,
   state => state.reuseErrorMessage
+)
+export const getMainSellIsActivateFixum = createSelector(
+  getMainSellFeatureState,
+  state => state.isActivateFixum
+)
+export const getMainSellIsActivateFixumSuccess = createSelector(
+  getMainSellFeatureState,
+  state => state.isActivateFixumSuccess
+)
+export const getMainSellIsActivateFixumError = createSelector(
+  getMainSellFeatureState,
+  state => state.isActivateFixumError
+)
+export const getMainSellIsActivateFixumErrorMessage = createSelector(
+  getMainSellFeatureState,
+  state => state.isActivateFixumErrorMessage
 )

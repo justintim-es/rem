@@ -15,6 +15,7 @@ import {
   rdxMainSellIsOnboardComplete,
   rdxMainSellLiberSubmit,
   rdxMainSellLiberSubmitSuccess,
+  rdxMainSellSellActivateFixum,
   rdxMainSellSellBalance,
   rdxMainSellSellLatestPayment,
   rdxMainSellSellRationem,
@@ -33,7 +34,7 @@ import {
   RDX_MAIN_SELL_IS_ONBOARD_COMPLETE_ERROR,
   RDX_MAIN_SELL_IS_ONBOARD_COMPLETE_SUCCESS,
   RDX_MAIN_SELL_LIBER_SUBMIT,
-  RDX_MAIN_SELL_LIBER_SUBMIT_ERROR, RDX_MAIN_SELL_LIBER_SUBMIT_SUCCESS, RDX_MAIN_SELL_ONBOARD_LINK_FETCH_ERROR, RDX_MAIN_SELL_ONBOARD_LINK_FETCH_SUCCESS, RDX_MAIN_SELL_SELLS, RDX_MAIN_SELL_SELLS_ERROR, RDX_MAIN_SELL_SELLS_SUCCESS, RDX_MAIN_SELL_SELL_BALANCE, RDX_MAIN_SELL_SELL_BALANCE_ERROR, RDX_MAIN_SELL_SELL_BALANCE_SUCCESS, RDX_MAIN_SELL_SELL_LATEST_PAYMENT, RDX_MAIN_SELL_SELL_LATEST_PAYMENT_SUCCESS, RDX_MAIN_SELL_SELL_RATIONEM, RDX_MAIN_SELL_SELL_RATIONEM_ERROR, RDX_MAIN_SELL_SELL_RATIONEM_SUCCESS, RDX_MAIN_SELL_SELL_REUSE_FETCH_ERROR, RDX_MAIN_SELL_SELL_REUSE_FETCH_SUCCESS } from './actions';
+  RDX_MAIN_SELL_LIBER_SUBMIT_ERROR, RDX_MAIN_SELL_LIBER_SUBMIT_SUCCESS, RDX_MAIN_SELL_ONBOARD_LINK_FETCH_ERROR, RDX_MAIN_SELL_ONBOARD_LINK_FETCH_SUCCESS, RDX_MAIN_SELL_SELLS, RDX_MAIN_SELL_SELLS_ERROR, RDX_MAIN_SELL_SELLS_SUCCESS, RDX_MAIN_SELL_SELL_ACTIVATE_FIXUM_ERROR, RDX_MAIN_SELL_SELL_ACTIVATE_FIXUM_SUCCESS, RDX_MAIN_SELL_SELL_BALANCE, RDX_MAIN_SELL_SELL_BALANCE_ERROR, RDX_MAIN_SELL_SELL_BALANCE_SUCCESS, RDX_MAIN_SELL_SELL_LATEST_PAYMENT, RDX_MAIN_SELL_SELL_LATEST_PAYMENT_SUCCESS, RDX_MAIN_SELL_SELL_RATIONEM, RDX_MAIN_SELL_SELL_RATIONEM_ERROR, RDX_MAIN_SELL_SELL_RATIONEM_SUCCESS, RDX_MAIN_SELL_SELL_REUSE_FETCH_ERROR, RDX_MAIN_SELL_SELL_REUSE_FETCH_SUCCESS } from './actions';
 import { IMainSellSellLatestPayment, IMainSellSellLatestPaymentSuccess, IMainSellSellReuseFetchError } from './interfaces';
 import { getMainSellIsLiber } from './selectors';
 
@@ -131,7 +132,7 @@ export class MainSellService {
     return this.actions.pipe(
       ofType(rdxMainSellFixumSubmit),
       withLatestFrom(this.store.select(getTokenToken)),
-      switchMap(ac => aschax.post('/api/sell/create-flga', ac[0].payload, {
+      switchMap(ac => aschax.post('/api/sell/create-fgla', ac[0].payload, {
         headers: {
           'x-auth-token': ac[1]
         }
@@ -380,6 +381,28 @@ export class MainSellService {
           component: ac[0].component
         }
         return reschet;
+      }))
+    )
+  })
+  activateFetch = createEffect(() => {
+    return this.actions.pipe(
+      ofType(rdxMainSellSellActivateFixum),
+      withLatestFrom(this.store.select(getTokenToken)),
+      switchMap(ac => aschax.post('/api/sell/activate/' + ac[0].payload, null, {
+        headers: {
+          'x-auth-token': ac[1]
+        }
+      }).then(res => {
+        return {
+          type: RDX_MAIN_SELL_SELL_ACTIVATE_FIXUM_SUCCESS,
+          component: ac[0].component
+        }
+      }).catch((err: AxiosError) => {
+        return {
+          type: RDX_MAIN_SELL_SELL_ACTIVATE_FIXUM_ERROR,
+          payload: err.response?.data,
+          component: ac[0].component
+        }
       }))
     )
   })

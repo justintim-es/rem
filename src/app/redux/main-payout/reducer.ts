@@ -5,13 +5,16 @@ export interface IMainPayoutReducer {
   isFetch: boolean;
   isFetchSuccess: boolean;
   isFetchError: boolean;
-  balance: number;
+  balanceAvailable: number;
+  balancePending: number;
+
 }
 export const mainPayoutInitial: IMainPayoutReducer = {
   isFetch: false,
   isFetchSuccess: false,
   isFetchError: false,
-  balance: 0
+  balanceAvailable: 0,
+  balancePending: 0
 }
 export const mainPayoutReducer = createReducer(
   mainPayoutInitial,
@@ -28,7 +31,8 @@ export const mainPayoutReducer = createReducer(
       ...state,
       isFetch: false,
       isFetchSuccess: true,
-      balance: action.payload!
+      balanceAvailable: action.payload!.balanceAvailable,
+      balancePending: action.payload!.balancePending
     }
   }),
   on(rdxMainPayoutFetchError, (state: IMainPayoutReducer) => {

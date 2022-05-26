@@ -28,7 +28,10 @@ import {
   rdxMainSellSellLatestPaymentSuccess,
   rdxMainSellSellReuseFetch,
   rdxMainSellSellReuseFetchSuccess,
-  rdxMainSellSellReuseFetchError
+  rdxMainSellSellReuseFetchError,
+  rdxMainSellSellActivateFixum,
+  rdxMainSellSellActivateFixumSuccess,
+  rdxMainSellSellActivateFixumError
 } from "./actions";
 
 export interface IMainSellReducer {
@@ -58,6 +61,10 @@ export interface IMainSellReducer {
     isReuseSuccess: List<boolean>;
     isReuseError: List<boolean>;
     reuseErrorMessage: List<string>;
+    isActivateFixum: List<boolean>;
+    isActivateFixumSuccess: List<boolean>;
+    isActivateFixumError: List<boolean>;
+    isActivateFixumErrorMessage: List<string>;
 }
 export const mainSellInitial: IMainSellReducer = {
     isLiber: false,
@@ -85,7 +92,11 @@ export const mainSellInitial: IMainSellReducer = {
     isReuse: List(),
     isReuseSuccess: List(),
     isReuseError: List(),
-    reuseErrorMessage: List()
+    reuseErrorMessage: List(),
+    isActivateFixum: List(),
+    isActivateFixumSuccess: List(),
+    isActivateFixumError: List(),
+    isActivateFixumErrorMessage: List()
 }
 export const mainSellReducer = createReducer(
   mainSellInitial,
@@ -288,6 +299,29 @@ export const mainSellReducer = createReducer(
       isReuse: state.isReuse.set(action.payload!.index, false),
       isReuseError: state.isReuse.set(action.payload!.index, true),
       reuseErrorMessage: state.reuseErrorMessage.set(action.payload!.index, action.payload!.error)
+    }
+  }),
+  on(rdxMainSellSellActivateFixum, (state: IMainSellReducer, action) => {
+    return {
+      ...state,
+      isActivateFixum: state.isActivateFixum.set(action.payload!.index, true),
+      isActivateFixumSuccess: state.isActivateFixumSuccess.set(action.payload!.index, false),
+      isActivateFixumError: state.isActivateFixumError.set(action.payload!.index, false)
+    }
+  }),
+  on(rdxMainSellSellActivateFixumSuccess, (state: IMainSellReducer, action) => {
+    return {
+      ...state,
+      isActivateFixum: state.isActivateFixum.set(action.payload!, false),
+      isActivateFixumSuccess: state.isActivateFixumSuccess.set(action.payload!, true)
+    }
+  }),
+  on(rdxMainSellSellActivateFixumError, (state: IMainSellReducer, action) => {
+    return {
+      ...state,
+      isActivateFixum: state.isActivateFixum.set(action.payload!.index, false),
+      isActivateFixumError: state.isActivateFixumError.set(action.payload!.index, true),
+      isActivateFixumErrorMessage: state.isActivateFixumErrorMessage.set(action.payload!.index, action.payload!.message)
     }
   })
 )

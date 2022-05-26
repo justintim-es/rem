@@ -15,7 +15,11 @@ export const getMainPayoutIsFetchError = createSelector(
   getMainPayoutFeatureState,
   state => state.isFetchError
 )
-export const getMainPayoutBalance = createSelector(
+export const getMainPayoutBalanceAvailable = createSelector(
   getMainPayoutFeatureState,
-  state => state.balance
+  state => state.balanceAvailable
+)
+export const getMainPayoutBalancePending = createSelector(
+  getMainPayoutFeatureState,
+  state => state.balancePending
 )

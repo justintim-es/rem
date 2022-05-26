@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IActionCreator, IBalanceResponse, IMainSellRationem, IMainSellSellBalance, IMainSellSellBalanceSuccess, IMainSellSellRationem, IMainSellSellRationemSuccess, IMainSellSellSuccess } from "../combiner";
-import { IMainSellIsOnboardCompleteSuccess, IMainSellSellLatestPayment, IMainSellSellLatestPaymentSuccess, IMainSellSellReuseFetch, IMainSellSellReuseFetchError } from "./interfaces";
+import { IMainSellIsOnboardCompleteSuccess, IMainSellSellActivateFixum, IMainSellSellActivateFixumError, IMainSellSellLatestPayment, IMainSellSellLatestPaymentSuccess, IMainSellSellReuseFetch, IMainSellSellReuseFetchError } from "./interfaces";
 
 export const RDX_MAIN_SELL_CHOOSE_LIBER = 'RDX_MAIN_SELL_CHOOSE_LIBER';
 export const rdxMainSellChooseLiber = createAction(
@@ -199,4 +199,20 @@ export const RDX_MAIN_SELL_SELL_REUSE_FETCH_ERROR = 'RDX_MAIN_SELL_SELL_REUSE_FE
 export const rdxMainSellSellReuseFetchError = createAction(
   RDX_MAIN_SELL_SELL_REUSE_FETCH_ERROR,
   props<IActionCreator<IMainSellSellReuseFetchError>>()
+)
+
+export const RDX_MAIN_SELL_SELL_ACTIVATE_FIXUM = 'RDX_MAIN_SELL_SELL_ACTIVATE_FIXUM';
+export const rdxMainSellSellActivateFixum = createAction(
+  RDX_MAIN_SELL_SELL_ACTIVATE_FIXUM,
+  props<IActionCreator<IMainSellSellActivateFixum>>()
+);
+export const RDX_MAIN_SELL_SELL_ACTIVATE_FIXUM_SUCCESS = 'RDX_MAIN_SELL_SELL_ACTIVATE_FIXUM_SUCCESS';
+export const rdxMainSellSellActivateFixumSuccess = createAction(
+  RDX_MAIN_SELL_SELL_ACTIVATE_FIXUM_SUCCESS,
+  props<IActionCreator<number>>()
+)
+export const RDX_MAIN_SELL_SELL_ACTIVATE_FIXUM_ERROR = 'RDX_MAIN_SELL_SELL_ACTIVATE_FIXUM_ERROR';
+export const rdxMainSellSellActivateFixumError = createAction(
+  RDX_MAIN_SELL_SELL_ACTIVATE_FIXUM_ERROR,
+  props<IActionCreator<IMainSellSellActivateFixumError>>()
 )

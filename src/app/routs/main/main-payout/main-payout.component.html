@@ -1,10 +1,22 @@
 <section class="hero is-fullheight-with-navbar is-black is-bold">
-  <div class="hero-body">
+  <div class="hero-head">
     <div class="container has-text-centered">
       <p class="heading">balance</p>
+    </div>
+  </div>
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <p class="heading">pending</p>
       <p class="title">
-        {{ '€ ' + (balance | async) }}
+        {{ '€ ' + (balancePending | async) }}
       </p>
+      <p class="heading">available</p>
+      <p class="title">
+        {{ '€ ' + (balanceAvailable | async) }}
+      </p>
+      <button style="width: 100%" mat-raised-button color="primary">
+        payout
+      </button>
     </div>
   </div>
 </section>

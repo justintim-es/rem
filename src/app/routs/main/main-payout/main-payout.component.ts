@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { IAction } from 'src/app/redux/combiner';
 import { RDX_MAIN_PAYOUT_FETCH } from 'src/app/redux/main-payout/actions';
-import { getMainPayoutBalance, getMainPayoutIsFetch } from 'src/app/redux/main-payout/selectors';
+import { getMainPayoutBalanceAvailable, getMainPayoutBalancePending, getMainPayoutIsFetch } from 'src/app/redux/main-payout/selectors';
 
 @Component({
   selector: 'app-main-payout',
@@ -12,12 +12,15 @@ import { getMainPayoutBalance, getMainPayoutIsFetch } from 'src/app/redux/main-p
 })
 export class MainPayoutComponent implements OnInit {
   isFetch: Observable<boolean>;
-  balance: Observable<number>;
+  balanceAvailable: Observable<number>;
+  balancePending: Observable<number>;
+
   constructor(
     private store: Store
   ) {
     this.isFetch = this.store.select(getMainPayoutIsFetch);
-    this.balance = this.store.select(getMainPayoutBalance);
+    this.balanceAvailable = this.store.select(getMainPayoutBalanceAvailable);
+    this.balancePending = this.store.select(getMainPayoutBalancePending);
   }
 
   ngOnInit(): void {

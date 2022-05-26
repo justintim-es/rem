@@ -20,3 +20,11 @@ export interface IMainSellSellReuseFetchError {
   index: number;
   error: string;
 }
+export interface IMainSellSellActivateFixum {
+  sell: string;
+  index: number;
+}
+export interface IMainSellSellActivateFixumError {
+  message: string;
+  index: number;
+}

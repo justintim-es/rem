@@ -14,6 +14,7 @@ import { getMainSellForIsFetch, getMainSellForIsFetchSuccess } from 'src/app/red
 })
 export class MainSellForComponent implements OnInit, AfterViewInit {
   @Input() ischindeschex: number | undefined;
+  @Input() liber: boolean | undefined;
   isFetch: Observable<boolean>;
   isFetchSuccess: Observable<boolean>;
   price: number;

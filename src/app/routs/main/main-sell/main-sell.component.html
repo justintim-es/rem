@@ -107,82 +107,105 @@
   </div>
 </section>
 <div *ngIf="(isOnboardComplete | async) && !(isOnboardCompleting | async)">
-  <section class="hero is-black is-bold"   *ngFor="let sell of (sells | async); let i = index">
-    <div class="hero-head" *ngIf="sell.liber">
-      <div class="container has-text-centered">
-        <nav class="level">
-          <div class="level-item">
-            <div>
-              <p class="heading">
-                balance
-              </p>
+  <mat-tab-group mat-align-tabs="start">
+    <mat-tab label="liber">
+      <section class="hero is-black is-bold"   *ngFor="let sell of (sells | async); let i = index">
+        <div class="hero-head" *ngIf="sell.liber">
+          <div class="container has-text-centered">
+            <nav class="level">
+              <div class="level-item">
+                <div>
+                  <p class="heading">
+                    balance
+                  </p>
+                </div>
             </div>
-        </div>
-        <div class="level-item">
-          <div>
-            <p class="heading">
-              {{ sell.balance }}
-            </p>
-          </div>
-        </div>
-        <div class="level-item">
-          <div>
-            <p class="heading">
-              account status
-            </p>
-          </div>
-        </div>
-        <div class="level-item">
-          <div>
-            <p class="heading" *ngIf="sell.rationem?.data?.includi">
-                {{ sell.rationem?.data?.includi ? (sell.isActive ? (sell.payment.isSold ? 'sold' : 'for sell') : 'ready') : 'pending' }}
-            </p>
-          </div>
-        </div>
-      </nav>
-      <button mat-icon-button *ngIf="
-      sell.rationem?.data?.includi &&
-      !sell.isActive"
-      routerLink="{{ '/main-wallet-protect/' + sell.rationem.data.index +  '/' + (sell.rationem?.gladiator) + '/' + (sell._id) }}">
-        <mat-icon>security</mat-icon>
-      </button>
-        </div>
-        </div>
-        <div class="hero-body" *ngIf="sell.isActive && !sell.payment.isSold">
-          <div class="container has-text-centered">
-            <p class="heading">price</p>
-            <p class="title">
-              {{ '€ ' + (sell.price) + ' cents' }}
-            </p>
-            <p class="heading">average</p>
-            {{ '€ ' + (sell.average)  }}
+            <div class="level-item">
+              <div>
+                <p class="heading">
+                  {{ sell.balance }}
+                </p>
+              </div>
+            </div>
+            <div class="level-item">
+              <div>
+                <p class="heading">
+                  account status
+                </p>
+              </div>
+            </div>
+            <div class="level-item">
+              <div>
+                <p class="heading" *ngIf="sell.rationem?.data?.includi">
+                    {{ sell.rationem?.data?.includi ? (sell.isActive ? (sell.payment.isSold ? 'sold' : 'for sell') : 'ready') : 'pending' }}
+                </p>
+              </div>
+            </div>
+          </nav>
+          <button mat-icon-button *ngIf="
+          sell.rationem?.data?.includi &&
+          !sell.isActive"
+          routerLink="{{ '/main-wallet-protect/' + sell.rationem.data.index +  '/' + (sell.rationem?.gladiator) + '/' + (sell._id) }}">
+            <mat-icon>security</mat-icon>
+          </button>
+            </div>
+            </div>
+            <div class="hero-body" *ngIf="sell.isActive && !sell.payment.isSold">
+              <div class="container has-text-centered">
+                <p class="heading">price</p>
+                <p class="title">
+                  {{ '€ ' + (sell.price) + ' cents' }}
+                </p>
+                <p class="heading">average</p>
+                <p class="title">
+                  {{ '€ ' + (sell.average)  }}
+                </p>
+              <app-main-sell-delete [ischindeschex]="i" [sell]="sell._id"></app-main-sell-delete>
+              </div>
+            </div>
+            <div class="hero-body" *ngIf="sell.rationem?.data?.includi && !sell.isActive">
+              <div class="container has-text-centered">
+                <app-ischin [ischindeschex]="i" [public]="sell.public" [ischid]="sell._id"></app-ischin>
+                <app-main-sell-for [ischindeschex]="i" *ngIf="sell.balance! > 0">
+                </app-main-sell-for>
+              </div>
+            </div>
+            <div class="hero-body" *ngIf="!sell.rationem?.data?.includi">
+              <div class="container has-text-centered">
+                <p class="heading" >
+                  {{ sell.rationem?.scriptum | json }}
+                </p>
+              </div>
+            </div>
+            <div class="hero-body" *ngIf="sell.payment.isSold && !(isReuseError | async)?.get(i)">
+              <div class="container has-text-centered">
+                <button mat-button (click)="reuse(i, sell._id)" *ngIf="!(isReuse | async)?.get(i)">reuse sell account</button>
+                <div class="spinner spinner-border spinner-border-sm" *ngIf="(isReuse | async)?.get(i)"></div>
+              </div>
+            </div>
+            <div class="hero-body"><div class="container has-text-centered">
+              <p class="heading">
+                {{ (reuseErrorMessage | async)?.get(i) | json }}
+              </p>
 
-          </div>
-        </div>
-        <div class="hero-body" *ngIf="sell.rationem?.data?.includi && !sell.isActive">
+            </div></div>
+          </section>
+    </mat-tab>
+    <mat-tab label="fixum">
+      <section class="hero is-black is-bold" *ngFor="let sell of (selllsFixum | async); let i = index">
+        <div class="hero-body">
           <div class="container has-text-centered">
-            <app-ischin [ischindeschex]="i" [public]="sell.public" [ischid]="sell._id"></app-ischin>
-            <app-main-sell-for [ischindeschex]="i" *ngIf="sell.balance! > 0">
-            </app-main-sell-for>
-          </div>
-        </div>
-        <div class="hero-body" *ngIf="!sell.rationem?.data?.includi">
-          <div class="container has-text-centered">
-            <p class="heading" >
-              {{ sell.rationem?.scriptum | json }}
+            <p class="heading">
+              {{ '€ ' + sell.price }}
             </p>
+            <button mat-raised-button color="primary" *ngIf="!(isActivateFixum | async)?.get(i) && !sell.payment.isSold">
+                activate
+            </button>
+            <app-main-sell-delete [ischindeschex]="i" [sell]="sell._id"></app-main-sell-delete>
+            <div class="spinner spinner-border" *ngIf="(isActivateFixum | async)?.get(i)"></div>
           </div>
         </div>
-        <div class="hero-body" *ngIf="sell.payment.isSold && !(isReuseError | async)?.get(i)">
-          <div class="container has-text-centered">
-            <button mat-button (click)="reuse(i, sell._id)" *ngIf="!(isReuse | async)?.get(i)">reuse sell account</button>
-            <div class="spinner spinner-border spinner-border-sm" *ngIf="(isReuse | async)?.get(i)"></div>
-          </div>
-        </div>
-        <div class="hero-body"><div class="container has-text-centered">
-          <p class="heading">
-            {{ (reuseErrorMessage | async)?.get(i) | json }}
-          </p>
-        </div></div>
-  </section>
+      </section>
+    </mat-tab>
+  </mat-tab-group>
 </div>

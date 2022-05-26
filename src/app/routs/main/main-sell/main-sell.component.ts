@@ -8,7 +8,7 @@ import { MyErrorStateMatcher } from 'src/app/error-state-matcher';
 import { IAction, IMainSellSellRationemSuccess, IMainSellSellSuccess, ISellSubmit } from 'src/app/redux/combiner';
 import { RDX_MAIN_SELL_BALANCE, RDX_MAIN_SELL_CHOOSE_FIXUM, RDX_MAIN_SELL_CHOOSE_LIBER, RDX_MAIN_SELL_CREATE_ACCOUNT_FETCH, RDX_MAIN_SELL_FIXUM_SUBMIT, RDX_MAIN_SELL_IS_ONBOARD_COMPLETE, RDX_MAIN_SELL_LIBER_SUBMIT, RDX_MAIN_SELL_SELLS, RDX_MAIN_SELL_SELL_REUSE_FETCH, RDX_MAIN_SELL_SUBMIT } from 'src/app/redux/main-sell/actions';
 import { IMainSellSellReuseFetch } from 'src/app/redux/main-sell/interfaces';
-import { getMainSellFetchErrorMessage, getMainSellFixumBalance, getMainSellIsAccount, getMainSellIsAccountCreateFetch, getMainSellIsAccountCreateFetchError, getMainSellIsAccountCreateFetchSuccess, getMainSellIsAmount, getMainSellIsFetch, getMainSellIsFetchError, getMainSellIsFetchSuccess, getMainSellIsFixum, getMainSellIsLiber, getMainSellIsOnboardComplete, getMainSellIsOnboardCompleting, getMainSellIsOnboardLinkFetchSuccess, getMainSellIsReuse, getMainSellIsReuseError, getMainSellLiberBalance, getMainSellOnboardLink, getMainSellReuseErrorMessage, getMainSellSellFilterNotLiber, getMainSellSellsFilterLiber } from 'src/app/redux/main-sell/selectors';
+import { getMainSellFetchErrorMessage, getMainSellFixumBalance, getMainSellIsAccount, getMainSellIsAccountCreateFetch, getMainSellIsAccountCreateFetchError, getMainSellIsAccountCreateFetchSuccess, getMainSellIsActivateFixum, getMainSellIsActivateFixumError, getMainSellIsActivateFixumErrorMessage, getMainSellIsActivateFixumSuccess, getMainSellIsAmount, getMainSellIsFetch, getMainSellIsFetchError, getMainSellIsFetchSuccess, getMainSellIsFixum, getMainSellIsLiber, getMainSellIsOnboardComplete, getMainSellIsOnboardCompleting, getMainSellIsOnboardLinkFetchSuccess, getMainSellIsReuse, getMainSellIsReuseError, getMainSellLiberBalance, getMainSellOnboardLink, getMainSellReuseErrorMessage, getMainSellSellFilterNotLiber, getMainSellSellsFilterFixum, getMainSellSellsFilterLiber } from 'src/app/redux/main-sell/selectors';
 import { IUnitGla } from 'src/app/redux/unit/reducer';
 import { getUnitGla } from 'src/app/redux/unit/selectors';
 
@@ -39,6 +39,7 @@ export class MainSellComponent implements OnInit, OnDestroy {
   isFetchError: SubscriptionLike;
   fetchErrorMessage: Observable<string>;
   sells: Observable<List<IMainSellSellSuccess>>;
+  selllsFixum: Observable<List<IMainSellSellSuccess>>;
   fixumSells: Observable<List<IMainSellSellSuccess>>;
   units: Observable<IUnitGla[]>;
   isOnboardCompleting: Observable<boolean>;
@@ -57,6 +58,11 @@ export class MainSellComponent implements OnInit, OnDestroy {
   isReuse: Observable<List<boolean>>;
   isReuseError: Observable<List<boolean>>;
   reuseErrorMessage: Observable<List<string>>;
+
+  isActivateFixum: Observable<List<boolean>>;
+  isActivateFixumSuccess: Observable<List<boolean>>;
+  isActivateFixumError: Observable<List<boolean>>;
+  isActivateFixumErrorMessage: Observable<List<string>>;
 
   constructor(
     private store: Store
@@ -98,6 +104,7 @@ export class MainSellComponent implements OnInit, OnDestroy {
     })
     this.fetchErrorMessage = this.store. select(getMainSellFetchErrorMessage);
     this.sells = this.store.select(getMainSellSellsFilterLiber);
+    this.selllsFixum = this.store.select(getMainSellSellsFilterFixum);
     this.fixumSells = this.store.select(getMainSellSellFilterNotLiber);
     this.isOnboardCompleting = this.store.select(getMainSellIsOnboardCompleting);
     this.isOnboardComplete = this.store.select(getMainSellIsOnboardComplete);
@@ -121,6 +128,10 @@ export class MainSellComponent implements OnInit, OnDestroy {
     this.isReuse = this.store.select(getMainSellIsReuse);
     this.isReuseError = this.store.select(getMainSellIsReuseError);
     this.reuseErrorMessage = this.store.select(getMainSellReuseErrorMessage);
+    this.isActivateFixum = this.store.select(getMainSellIsActivateFixum);
+    this.isActivateFixumSuccess = this.store.select(getMainSellIsActivateFixumSuccess);
+    this.isActivateFixumError = this.store.select(getMainSellIsActivateFixumError);
+    this.isActivateFixumErrorMessage = this.store.select(getMainSellIsActivateFixumErrorMessage);
    }
 
   ngOnInit(): void {
@@ -189,6 +200,9 @@ export class MainSellComponent implements OnInit, OnDestroy {
       },
       component: 'main-sell'
     });
+  }
+  cancel() {
+
   }
   ngOnDestroy() {
     this.isFetchSuccess.unsubscribe();
