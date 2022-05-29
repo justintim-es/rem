@@ -87,6 +87,8 @@ import { MainPayoutService } from './redux/main-payout/main-payout.service';
 import { MainSellDeleteComponent } from './routs/main/main-sell/main-sell-delete/main-sell-delete.component';
 import { mainSellDeleteReducer } from './redux/main-sell-delete/reducer';
 import { MainSellDeleteService } from './redux/main-sell-delete/main-sell-delete.service';
+import { mainSellActivateReducer } from './redux/main-sell-activate/reducer';
+import { MainSellActivateService } from './redux/main-sell-activate/main-sell-activate.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -153,7 +155,8 @@ import { MainSellDeleteService } from './redux/main-sell-delete/main-sell-delete
       mainBuyDefencesReducer: mainBuyDefencesReducer,
       paymentSuccessReducer: paymentSuccessReducer,
       mainPayoutReducer: mainPayoutReducer,
-      mainSellDeleteReducer: mainSellDeleteReducer
+      mainSellDeleteReducer: mainSellDeleteReducer,
+      mainSellActivateReducer: mainSellActivateReducer
     }, {}),
     EffectsModule.forRoot([
       SellEffectsService,
@@ -176,7 +179,8 @@ import { MainSellDeleteService } from './redux/main-sell-delete/main-sell-delete
       PaymentSuccessService,
       MainBuyDefencesService,
       MainPayoutService,
-      MainSellDeleteService
+      MainSellDeleteService,
+      MainSellActivateService
     ]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],

@@ -163,7 +163,7 @@ export interface IMainSellSellSuccess {
   isActive: boolean;
   isBalance: boolean;
   gla: string;
-  price: number;
+  fixumPrice: number;
   average: number;
   date: Date;
   public: string;

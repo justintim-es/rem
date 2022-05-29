@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { empty, Observable } from 'rxjs';
@@ -10,7 +10,8 @@ import { getMainSellForIsFetch, getMainSellForIsFetchSuccess } from 'src/app/red
 @Component({
   selector: 'app-main-sell-for',
   templateUrl: './main-sell-for.component.html',
-  styleUrls: ['./main-sell-for.component.css']
+  styleUrls: ['./main-sell-for.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MainSellForComponent implements OnInit, AfterViewInit {
   @Input() ischindeschex: number | undefined;

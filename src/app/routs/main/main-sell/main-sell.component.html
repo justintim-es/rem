@@ -77,7 +77,7 @@
                 <div class="spinner-border spinner-border-sm" matSuffix *ngIf="isFetch | async"></div>
               </mat-form-field>
               <button mat-button *ngIf="(isLiber | async) && !(isFetch | async)" (click)="neschew()">create new sell acccount</button>
-              <button class="spinner-border spinner-border-sm" *ngIf="isFetch | async"></button>
+              <button class="spinner-border spinner-border-sm" *ngIf="(isFetch | async) && (isLiber | async)"></button>
             </div>
           </div>
     </div>
@@ -154,7 +154,7 @@
               <div class="container has-text-centered">
                 <p class="heading">price</p>
                 <p class="title">
-                  {{ '€ ' + (sell.price) + ' cents' }}
+                  {{ '€ ' + (sell.payment.price) + ' cents' }}
                 </p>
                 <p class="heading">average</p>
                 <p class="title">
@@ -187,7 +187,6 @@
               <p class="heading">
                 {{ (reuseErrorMessage | async)?.get(i) | json }}
               </p>
-
             </div></div>
           </section>
     </mat-tab>
@@ -196,13 +195,16 @@
         <div class="hero-body">
           <div class="container has-text-centered">
             <p class="heading">
-              {{ '€ ' + sell.price }}
+              {{ '€ ' + sell.fixumPrice }}
             </p>
-            <button mat-raised-button color="primary" *ngIf="!(isActivateFixum | async)?.get(i) && !sell.payment.isSold">
+            <button mat-button color="primary" *ngIf="!(isActivateFixum | async)?.get(i) && !sell.payment.isSold" (click)="activate(i, sell._id)">
                 activate
             </button>
-            <app-main-sell-delete [ischindeschex]="i" [sell]="sell._id"></app-main-sell-delete>
+            <app-main-sell-delete [ischindeschex]="i" [sell]="sell._id" *ngIf="!(isActivateFixum | async)?.get(i)"></app-main-sell-delete>
             <div class="spinner spinner-border" *ngIf="(isActivateFixum | async)?.get(i)"></div>
+            <p class="subtitle">
+              {{ (isActivateFixumErrorMessage | async)?.get(i) }}
+            </p>
           </div>
         </div>
       </section>

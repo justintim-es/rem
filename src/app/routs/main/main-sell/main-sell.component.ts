@@ -6,9 +6,11 @@ import { Observable, SubscriptionLike } from 'rxjs';
 import { transformFormAbove, transformFromBelow } from 'src/app/animations/animator';
 import { MyErrorStateMatcher } from 'src/app/error-state-matcher';
 import { IAction, IMainSellSellRationemSuccess, IMainSellSellSuccess, ISellSubmit } from 'src/app/redux/combiner';
+import { RDX_MAIN_SELL_SELL_ACTIVATE_FIXUM } from 'src/app/redux/main-sell-activate/actions';
+import { getMainSellActivateIsActivateFixum, getMainSellActivateIsActivateFixumError, getMainSellActivateIsActivateFixumErrorMessage, getMainSellActivateIsActivateFixumSuccess } from 'src/app/redux/main-sell-activate/selectors';
 import { RDX_MAIN_SELL_BALANCE, RDX_MAIN_SELL_CHOOSE_FIXUM, RDX_MAIN_SELL_CHOOSE_LIBER, RDX_MAIN_SELL_CREATE_ACCOUNT_FETCH, RDX_MAIN_SELL_FIXUM_SUBMIT, RDX_MAIN_SELL_IS_ONBOARD_COMPLETE, RDX_MAIN_SELL_LIBER_SUBMIT, RDX_MAIN_SELL_SELLS, RDX_MAIN_SELL_SELL_REUSE_FETCH, RDX_MAIN_SELL_SUBMIT } from 'src/app/redux/main-sell/actions';
-import { IMainSellSellReuseFetch } from 'src/app/redux/main-sell/interfaces';
-import { getMainSellFetchErrorMessage, getMainSellFixumBalance, getMainSellIsAccount, getMainSellIsAccountCreateFetch, getMainSellIsAccountCreateFetchError, getMainSellIsAccountCreateFetchSuccess, getMainSellIsActivateFixum, getMainSellIsActivateFixumError, getMainSellIsActivateFixumErrorMessage, getMainSellIsActivateFixumSuccess, getMainSellIsAmount, getMainSellIsFetch, getMainSellIsFetchError, getMainSellIsFetchSuccess, getMainSellIsFixum, getMainSellIsLiber, getMainSellIsOnboardComplete, getMainSellIsOnboardCompleting, getMainSellIsOnboardLinkFetchSuccess, getMainSellIsReuse, getMainSellIsReuseError, getMainSellLiberBalance, getMainSellOnboardLink, getMainSellReuseErrorMessage, getMainSellSellFilterNotLiber, getMainSellSellsFilterFixum, getMainSellSellsFilterLiber } from 'src/app/redux/main-sell/selectors';
+import { IMainSellSellActivateFixum, IMainSellSellReuseFetch } from 'src/app/redux/main-sell/interfaces';
+import { getMainSellFetchErrorMessage, getMainSellFixumBalance, getMainSellIsAccount, getMainSellIsAccountCreateFetch, getMainSellIsAccountCreateFetchError, getMainSellIsAccountCreateFetchSuccess, getMainSellIsAmount, getMainSellIsFetch, getMainSellIsFetchError, getMainSellIsFetchSuccess, getMainSellIsFixum, getMainSellIsLiber, getMainSellIsOnboardComplete, getMainSellIsOnboardCompleting, getMainSellIsOnboardLinkFetchSuccess, getMainSellIsReuse, getMainSellIsReuseError, getMainSellLiberBalance, getMainSellOnboardLink, getMainSellReuseErrorMessage, getMainSellSellFilterNotLiber, getMainSellSellsFilterFixum, getMainSellSellsFilterLiber } from 'src/app/redux/main-sell/selectors';
 import { IUnitGla } from 'src/app/redux/unit/reducer';
 import { getUnitGla } from 'src/app/redux/unit/selectors';
 
@@ -128,10 +130,10 @@ export class MainSellComponent implements OnInit, OnDestroy {
     this.isReuse = this.store.select(getMainSellIsReuse);
     this.isReuseError = this.store.select(getMainSellIsReuseError);
     this.reuseErrorMessage = this.store.select(getMainSellReuseErrorMessage);
-    this.isActivateFixum = this.store.select(getMainSellIsActivateFixum);
-    this.isActivateFixumSuccess = this.store.select(getMainSellIsActivateFixumSuccess);
-    this.isActivateFixumError = this.store.select(getMainSellIsActivateFixumError);
-    this.isActivateFixumErrorMessage = this.store.select(getMainSellIsActivateFixumErrorMessage);
+    this.isActivateFixum = this.store.select(getMainSellActivateIsActivateFixum);
+    this.isActivateFixumSuccess = this.store.select(getMainSellActivateIsActivateFixumSuccess);
+    this.isActivateFixumError = this.store.select(getMainSellActivateIsActivateFixumError);
+    this.isActivateFixumErrorMessage = this.store.select(getMainSellActivateIsActivateFixumErrorMessage);
    }
 
   ngOnInit(): void {
@@ -201,8 +203,15 @@ export class MainSellComponent implements OnInit, OnDestroy {
       component: 'main-sell'
     });
   }
-  cancel() {
-
+  activate(index: number, id: string) {
+    this.store.dispatch<IAction<IMainSellSellActivateFixum>>({
+      type: RDX_MAIN_SELL_SELL_ACTIVATE_FIXUM,
+      payload: {
+        index: index,
+        sell: id
+      },
+      component: 'main-sell'
+    });
   }
   ngOnDestroy() {
     this.isFetchSuccess.unsubscribe();

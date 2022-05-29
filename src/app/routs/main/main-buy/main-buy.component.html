@@ -37,17 +37,179 @@
           </section>
         </mat-tab>
         <mat-tab label="Price">
-
-
+          <section class="hero is-black is-bold" *ngFor="let offer of (offersLP | async); let i = index">
+            <div class="hero-head">
+              <div class="container has-text-center">
+                <nav class="level">
+                  <div class="level-item">
+                    <div>
+                      <p class="heading">average</p>
+                    </div>
+                  </div>
+                  <div class="level-item">
+                    <div>
+                      <p class="heading">
+                        {{ '€ ' + offer.payment.average}}
+                      </p>
+                    </div>
+                  </div>
+                </nav>
+              </div>
+            </div>
+            <div class="hero-body">
+              <div class="container has-text-centered">
+                <app-main-buy-button [price]="offer.payment.price" [gla]="offer.payment.gla" [url]="offer.payment.url">
+                  {{ offer.payment.price }}
+                </app-main-buy-button>
+              </div>
+            </div>
+            <div class="hero-foot">
+              <div class="container has-text-centered">
+                <button mat-button style="width:100%;" routerLink="{{ '/main-buy-defences/' + offer.rationemId }}">defences</button>
+              </div>
+            </div>
+          </section>
         </mat-tab>
-        <mat-tab label="Average"> Content 3 </mat-tab>
+        <mat-tab label="Average">
+          <section class="hero is-black is-bold" *ngFor="let offer of (offersLA | async); let i = index">
+            <div class="hero-head">
+              <div class="container has-text-center">
+                <nav class="level">
+                  <div class="level-item">
+                    <div>
+                      <p class="heading">average</p>
+                    </div>
+                  </div>
+                  <div class="level-item">
+                    <div>
+                      <p class="heading">
+                        {{ '€ ' + offer.payment.average}}
+                      </p>
+                    </div>
+                  </div>
+                </nav>
+              </div>
+            </div>
+            <div class="hero-body">
+              <div class="container has-text-centered">
+                <app-main-buy-button [price]="offer.payment.price" [gla]="offer.payment.gla" [url]="offer.payment.url">
+                  {{ offer.payment.price }}
+                </app-main-buy-button>
+              </div>
+            </div>
+            <div class="hero-foot">
+              <div class="container has-text-centered">
+                <button mat-button style="width:100%;" routerLink="{{ '/main-buy-defences/' + offer.rationemId }}">defences</button>
+              </div>
+            </div>
+          </section>
+        </mat-tab>
       </mat-tab-group>
     </mat-tab>
     <mat-tab label="Fixum">
       <mat-tab-group mat-align-tabs="center">
-        <mat-tab label="Gla"> Content 1 </mat-tab>
-        <mat-tab label="Price"> Content 2 </mat-tab>
-        <mat-tab label="Average"> Content 3 </mat-tab>
+        <mat-tab label="Gla">
+          <section class="hero is-black is-bold" *ngFor="let offer of (offersFG | async); let i = index">
+            <div class="hero-head">
+              <div class="container has-text-center">
+                <nav class="level">
+                  <div class="level-item">
+                    <div>
+                      <p class="heading">average</p>
+                    </div>
+                  </div>
+                  <div class="level-item">
+                    <div>
+                      <p class="heading">
+                        {{ '€ ' + offer.payment.average}}
+                      </p>
+                    </div>
+                  </div>
+                </nav>
+              </div>
+            </div>
+            <div class="hero-body">
+              <div class="container has-text-centered">
+                <app-main-buy-button [price]="offer.payment.price" [gla]="offer.payment.gla" [url]="offer.payment.url">
+                  {{ offer.payment.price }}
+                </app-main-buy-button>
+              </div>
+            </div>
+            <div class="hero-foot">
+              <div class="container has-text-centered">
+                <button mat-button style="width:100%;" routerLink="{{ '/main-buy-defences/' + offer.rationemId }}">defences</button>
+              </div>
+            </div>
+          </section>
+        </mat-tab>
+        <mat-tab label="Price">
+          <section class="hero is-black is-bold" *ngFor="let offer of (offersFP | async); let i = index">
+            <div class="hero-head">
+              <div class="container has-text-center">
+                <nav class="level">
+                  <div class="level-item">
+                    <div>
+                      <p class="heading">average</p>
+                    </div>
+                  </div>
+                  <div class="level-item">
+                    <div>
+                      <p class="heading">
+                        {{ '€ ' + offer.payment.average}}
+                      </p>
+                    </div>
+                  </div>
+                </nav>
+              </div>
+            </div>
+            <div class="hero-body">
+              <div class="container has-text-centered">
+                <app-main-buy-button [price]="offer.payment.price" [gla]="offer.payment.gla" [url]="offer.payment.url">
+                  {{ offer.payment.price }}
+                </app-main-buy-button>
+              </div>
+            </div>
+            <div class="hero-foot">
+              <div class="container has-text-centered">
+                <button mat-button style="width:100%;" routerLink="{{ '/main-buy-defences/' + offer.rationemId }}">defences</button>
+              </div>
+            </div>
+          </section>
+        </mat-tab>
+        <mat-tab label="Average">
+          <section class="hero is-black is-bold" *ngFor="let offer of (offersFA | async); let i = index">
+            <div class="hero-head">
+              <div class="container has-text-center">
+                <nav class="level">
+                  <div class="level-item">
+                    <div>
+                      <p class="heading">average</p>
+                    </div>
+                  </div>
+                  <div class="level-item">
+                    <div>
+                      <p class="heading">
+                        {{ '€ ' + offer.payment.average}}
+                      </p>
+                    </div>
+                  </div>
+                </nav>
+              </div>
+            </div>
+            <div class="hero-body">
+              <div class="container has-text-centered">
+                <app-main-buy-button [price]="offer.payment.price" [gla]="offer.payment.gla" [url]="offer.payment.url">
+                  {{ offer.payment.price }}
+                </app-main-buy-button>
+              </div>
+            </div>
+            <div class="hero-foot">
+              <div class="container has-text-centered">
+                <button mat-button style="width:100%;" routerLink="{{ '/main-buy-defences/' + offer.rationemId }}">defences</button>
+              </div>
+            </div>
+          </section>
+        </mat-tab>
       </mat-tab-group>
     </mat-tab>
   </mat-tab-group>
